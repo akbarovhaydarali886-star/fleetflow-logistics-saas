@@ -4,7 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { StatusBadge } from '../common/Badge';
 
 export function InvoiceModal() {
-  const { activeInvoiceModal: invoice, setActiveInvoiceModal, markInvoicePaid } = useApp();
+  const { activeInvoiceModal: invoice, setActiveInvoiceModal, markInvoicePaid, t } = useApp();
 
   if (!invoice) return null;
 
@@ -22,7 +22,7 @@ export function InvoiceModal() {
         {/* Actions bar (hidden during print) */}
         <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur print:hidden">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">B2B Commercial Invoice</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('modals.invoiceTitle')}</span>
             <StatusBadge status={invoice.status} />
           </div>
 
@@ -36,7 +36,7 @@ export function InvoiceModal() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition"
               >
                 <CheckCircle className="w-3.5 h-3.5" />
-                Mark as Paid
+                {t('modals.btnMarkPaid')}
               </button>
             )}
 
@@ -45,7 +45,7 @@ export function InvoiceModal() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition"
             >
               <Printer className="w-3.5 h-3.5" />
-              Print / Save PDF
+              {t('modals.btnPrintPdf')}
             </button>
 
             <button
@@ -80,9 +80,9 @@ export function InvoiceModal() {
               <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest print:text-blue-700">INVOICE</span>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white font-mono mt-0.5 print:text-black">{invoice.id}</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 print:text-neutral-600">
-                Date Issued: <span className="text-slate-800 dark:text-slate-200 font-medium print:text-black">{invoice.date}</span><br />
-                Payment Due: <span className="text-slate-800 dark:text-slate-200 font-medium print:text-black">{invoice.dueDate}</span><br />
-                Ref Shipment: <span className="text-cyan-600 dark:text-cyan-400 font-mono print:text-blue-700">{invoice.shipmentId}</span>
+                {t('modals.invoiceDate')} <span className="text-slate-800 dark:text-slate-200 font-medium print:text-black">{invoice.date}</span><br />
+                {t('modals.dueDate')} <span className="text-slate-800 dark:text-slate-200 font-medium print:text-black">{invoice.dueDate}</span><br />
+                Ref: <span className="text-cyan-600 dark:text-cyan-400 font-mono print:text-blue-700">{invoice.shipmentId}</span>
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ export function InvoiceModal() {
           {/* Billed To & Payment Method */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider print:text-neutral-500">Billed Client:</span>
+              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider print:text-neutral-500">{t('modals.billedClient')}</span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white mt-1 print:text-black">{invoice.clientName}</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 print:text-neutral-600">
                 Verified Enterprise Logistics Account<br />
@@ -99,7 +99,7 @@ export function InvoiceModal() {
             </div>
 
             <div className="sm:text-right">
-              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider print:text-neutral-500">Payment Channel:</span>
+              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider print:text-neutral-500">{t('modals.paymentChannel')}</span>
               <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1 print:text-black">{invoice.paymentMethod}</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 print:text-neutral-600">
                 SWIFT: UZLSCH22XXX<br />
@@ -113,10 +113,10 @@ export function InvoiceModal() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 uppercase tracking-wider print:bg-neutral-100 print:text-black border-b border-slate-200 dark:border-slate-800 print:border-neutral-200">
                 <tr>
-                  <th className="px-4 py-3">Description of Freight Service</th>
-                  <th className="px-4 py-3 text-center">Distance</th>
-                  <th className="px-4 py-3 text-right">Tax Rate</th>
-                  <th className="px-4 py-3 text-right">Subtotal</th>
+                  <th className="px-4 py-3">{t('modals.tableDesc')}</th>
+                  <th className="px-4 py-3 text-center">{t('modals.tableDist')}</th>
+                  <th className="px-4 py-3 text-right">{t('modals.tableTax')}</th>
+                  <th className="px-4 py-3 text-right">{t('modals.tableSubtotal')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 print:divide-neutral-200">
@@ -137,15 +137,15 @@ export function InvoiceModal() {
           <div className="flex justify-end">
             <div className="w-64 space-y-2 text-xs">
               <div className="flex justify-between text-slate-600 dark:text-slate-400 print:text-neutral-600">
-                <span>Subtotal:</span>
+                <span>{t('modals.subtotal')}</span>
                 <span className="font-medium text-slate-900 dark:text-slate-200 print:text-black">${invoice.amount.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-400 print:text-neutral-600">
-                <span>VAT / Cargo Tax ({invoice.taxRate}%):</span>
+                <span>{t('modals.vatTax')} ({invoice.taxRate}%):</span>
                 <span className="font-medium text-slate-900 dark:text-slate-200 print:text-black">${taxAmount.toLocaleString()}</span>
               </div>
               <div className="border-t border-slate-200 dark:border-slate-800 pt-2 flex justify-between text-sm font-bold text-slate-900 dark:text-white print:border-neutral-300 print:text-black">
-                <span>Total Amount:</span>
+                <span>{t('modals.totalAmount')}</span>
                 <span className="text-cyan-600 dark:text-cyan-400 text-base print:text-black">${totalAmount.toLocaleString()} USD</span>
               </div>
             </div>

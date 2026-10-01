@@ -8,7 +8,7 @@ import { useApp } from '../context/AppContext';
 
 export function NewShipmentPage() {
   const navigate = useNavigate();
-  const { addShipment, fleet, drivers, setActiveShipmentModal } = useApp();
+  const { addShipment, fleet, drivers, setActiveShipmentModal, t } = useApp();
 
   const [step, setStep] = useState(1);
 
@@ -97,9 +97,9 @@ export function NewShipmentPage() {
       
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Create Commercial Shipment</h1>
+        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('wizard.title')}</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Initiate new freight order, assign vehicle telemetry, and generate bill of lading.
+          {t('wizard.subtitle')}
         </p>
       </div>
 
@@ -107,10 +107,10 @@ export function NewShipmentPage() {
       <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between">
           {[
-            { num: 1, label: 'Origin & Destination' },
-            { num: 2, label: 'Cargo Specification' },
-            { num: 3, label: 'Carrier & Rate Quote' },
-            { num: 4, label: 'Review & Dispatch' }
+            { num: 1, label: t('wizard.step1') },
+            { num: 2, label: t('wizard.step2') },
+            { num: 3, label: t('wizard.step3') },
+            { num: 4, label: t('wizard.step4') }
           ].map((s, index) => {
             const isCompleted = step > s.num;
             const isCurrent = step === s.num;
@@ -152,18 +152,18 @@ export function NewShipmentPage() {
           {step === 1 && (
             <div className="space-y-6 animate-fade-in">
               <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">Step 1: Origin & Consignee Destination</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Specify sender warehouse and receiver delivery coordinates</p>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('wizard.step1Title')}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('wizard.step1Sub')}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Sender */}
                 <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4">
                   <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider">
-                    <MapPin className="w-4 h-4" /> Sender (Origin)
+                    <MapPin className="w-4 h-4" /> {t('wizard.senderOrigin')}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Company / Entity</label>
+                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.companyEntity')}</label>
                     <input
                       type="text"
                       value={formData.senderName}
@@ -174,7 +174,7 @@ export function NewShipmentPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">City</label>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.city')}</label>
                       <input
                         type="text"
                         value={formData.senderCity}
@@ -184,7 +184,7 @@ export function NewShipmentPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Country</label>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.country')}</label>
                       <input
                         type="text"
                         value={formData.senderCountry}
@@ -195,7 +195,7 @@ export function NewShipmentPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Warehouse Address</label>
+                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.warehouseAddress')}</label>
                     <input
                       type="text"
                       value={formData.senderAddress}
@@ -209,10 +209,10 @@ export function NewShipmentPage() {
                 {/* Receiver */}
                 <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4">
                   <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                    <MapPin className="w-4 h-4" /> Receiver (Consignee)
+                    <MapPin className="w-4 h-4" /> {t('wizard.receiverDest')}
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Client Company</label>
+                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.companyEntity')}</label>
                     <input
                       type="text"
                       value={formData.receiverName}
@@ -223,7 +223,7 @@ export function NewShipmentPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">City</label>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.city')}</label>
                       <input
                         type="text"
                         value={formData.receiverCity}
@@ -233,7 +233,7 @@ export function NewShipmentPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Country</label>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.country')}</label>
                       <input
                         type="text"
                         value={formData.receiverCountry}
@@ -244,7 +244,7 @@ export function NewShipmentPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Destination Address</label>
+                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.destAddress')}</label>
                     <input
                       type="text"
                       value={formData.receiverAddress}
@@ -262,13 +262,13 @@ export function NewShipmentPage() {
           {step === 2 && (
             <div className="space-y-6 animate-fade-in">
               <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">Step 2: Cargo & Package Characteristics</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Enter weight, handling category, and customs valuation</p>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('wizard.step2Title')}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('wizard.step2Sub')}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Cargo Item Title</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.cargoTitle')}</label>
                   <input
                     type="text"
                     value={formData.cargo}
@@ -279,7 +279,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Freight Handling Class</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.handlingClass')}</label>
                   <select
                     value={formData.type}
                     onChange={(e) => handleChange('type', e.target.value)}
@@ -294,7 +294,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Gross Weight (kg)</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.grossWeight')}</label>
                   <input
                     type="number"
                     value={formData.weightKg}
@@ -305,7 +305,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Volume (Cubic Meters - m³)</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.volume')}</label>
                   <input
                     type="number"
                     value={formData.volumeM3}
@@ -316,7 +316,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Declared Customs Value ($USD)</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.customsValue')}</label>
                   <input
                     type="number"
                     value={formData.declaredValue}
@@ -327,15 +327,15 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Priority Level</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.priorityLevel')}</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => handleChange('priority', e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-500"
                   >
-                    <option value="Normal">Normal</option>
-                    <option value="High">High</option>
-                    <option value="Urgent">Urgent</option>
+                    <option value="Normal">{t('priority.Normal')}</option>
+                    <option value="High">{t('priority.High')}</option>
+                    <option value="Urgent">{t('priority.Urgent')}</option>
                   </select>
                 </div>
               </div>
@@ -343,8 +343,8 @@ export function NewShipmentPage() {
               {/* Special options */}
               <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white block">Requires Active Cold-Chain Sensors (-4°C to +4°C)</span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400">Activates IoT reefer telematics and temperature alert logging</span>
+                  <span className="text-xs font-bold text-slate-900 dark:text-white block">{t('wizard.requiresColdChain')}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">{t('wizard.coldChainNote')}</span>
                 </div>
                 <input
                   type="checkbox"
@@ -360,13 +360,13 @@ export function NewShipmentPage() {
           {step === 3 && (
             <div className="space-y-6 animate-fade-in">
               <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">Step 3: Vehicle Allocation & Dynamic Rate</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Select available fleet asset and transport speed</p>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('wizard.step3Title')}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('wizard.step3Sub')}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Select Available Fleet Carrier</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.selectCarrier')}</label>
                   <select
                     value={formData.carrier}
                     onChange={(e) => {
@@ -386,7 +386,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Assigned Certified Driver</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.assignedDriver')}</label>
                   <select
                     value={formData.driver}
                     onChange={(e) => handleChange('driver', e.target.value)}
@@ -399,7 +399,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Service Level Tier</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.serviceLevel')}</label>
                   <select
                     value={formData.serviceLevel}
                     onChange={(e) => handleChange('serviceLevel', e.target.value)}
@@ -412,7 +412,7 @@ export function NewShipmentPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Estimated Delivery Window</label>
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">{t('wizard.deliveryWindow')}</label>
                   <input
                     type="text"
                     value={formData.eta}
@@ -426,16 +426,16 @@ export function NewShipmentPage() {
               <div className="p-6 rounded-2xl bg-cyan-50 dark:bg-gradient-to-r dark:from-cyan-950/60 dark:to-slate-950 border border-cyan-200 dark:border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
                   <span className="text-xs font-bold text-cyan-700 dark:text-cyan-400 uppercase tracking-widest flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" /> Automated B2B Freight Quote
+                    <Sparkles className="w-3.5 h-3.5" /> {t('wizard.b2bQuote')}
                   </span>
                   <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-                    Calculated for {formData.weightKg.toLocaleString()} kg from {formData.senderCity} to {formData.receiverCity}
+                    {t('wizard.quoteCalculated')} {formData.weightKg.toLocaleString()} kg ({formData.senderCity} &rarr; {formData.receiverCity})
                   </p>
                 </div>
 
                 <div className="text-right">
                   <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">${formData.price.toLocaleString()}</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 block">USD + 12% VAT</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block">{t('wizard.vatIncluded')}</span>
                 </div>
               </div>
             </div>
@@ -445,14 +445,14 @@ export function NewShipmentPage() {
           {step === 4 && (
             <div className="space-y-6 animate-fade-in">
               <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">Step 4: Review Manifest & Dispatch Order</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Confirm all details before allocating carrier and generating tracking ID</p>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">{t('wizard.step4Title')}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{t('wizard.step4Sub')}</p>
               </div>
 
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800/80">
                   <div>
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500 uppercase">Route</span>
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 uppercase">{t('shipments.colRoute')}</span>
                     <h4 className="text-base font-bold text-slate-900 dark:text-white mt-0.5">
                       {formData.senderCity}, {formData.senderCountry} &rarr; {formData.receiverCity}, {formData.receiverCountry}
                     </h4>
@@ -464,19 +464,19 @@ export function NewShipmentPage() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
                   <div>
-                    <span className="text-slate-500 block">Cargo Description:</span>
+                    <span className="text-slate-500 block">{t('wizard.cargoDesc')}</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200 mt-0.5 block">{formData.cargo}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block">Gross Weight:</span>
+                    <span className="text-slate-500 block">{t('wizard.weight')}</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200 mt-0.5 block">{formData.weightKg.toLocaleString()} kg</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block">Assigned Driver:</span>
+                    <span className="text-slate-500 block">{t('wizard.driver')}</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200 mt-0.5 block">{formData.driver}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block">Rate Total:</span>
+                    <span className="text-slate-500 block">{t('wizard.rateTotal')}</span>
                     <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 block">${formData.price.toLocaleString()} USD</span>
                   </div>
                 </div>
@@ -485,7 +485,7 @@ export function NewShipmentPage() {
               <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center gap-3 text-xs text-emerald-800 dark:text-emerald-300">
                 <Check className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>
-                  Dispatching will instantly generate a tracking ID, register a commercial invoice in the billing ledger, and activate GPS telematics.
+                  {t('wizard.dispatchNote')}
                 </span>
               </div>
             </div>
@@ -500,7 +500,7 @@ export function NewShipmentPage() {
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span>Back</span>
+                <span>{t('wizard.btnBack')}</span>
               </button>
             ) : <div />}
 
@@ -508,7 +508,7 @@ export function NewShipmentPage() {
               type="submit"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold shadow-lg shadow-cyan-500/20 transition transform hover:-translate-y-0.5"
             >
-              <span>{step === 4 ? 'Confirm & Dispatch Shipment' : 'Continue to Next Step'}</span>
+              <span>{step === 4 ? t('wizard.btnSubmit') : t('wizard.btnNext')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

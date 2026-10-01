@@ -13,7 +13,8 @@ export function ShipmentDetailModal() {
     setActiveShipmentModal, 
     updateShipmentStatus, 
     setActiveInvoiceModal,
-    invoices 
+    invoices,
+    t
   } = useApp();
 
   if (!shipment) return null;
@@ -44,7 +45,7 @@ export function ShipmentDetailModal() {
                 <StatusBadge status={shipment.status} />
                 <PriorityBadge priority={shipment.priority} />
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Departed on {shipment.departureDate} • ETA: {shipment.eta}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Departed: {shipment.departureDate} • ETA: {shipment.eta}</p>
             </div>
           </div>
 
@@ -58,7 +59,7 @@ export function ShipmentDetailModal() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition"
               >
                 <FileText className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                View Invoice
+                {t('modals.btnInvoice')}
               </button>
             )}
 
@@ -78,7 +79,7 @@ export function ShipmentDetailModal() {
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
               <Activity className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-              <span className="font-medium">Quick Status Override:</span>
+              <span className="font-medium">{t('modals.quickOverride')}</span>
             </div>
             <div className="flex items-center gap-3">
               <select
@@ -86,13 +87,13 @@ export function ShipmentDetailModal() {
                 onChange={handleStatusChange}
                 className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-500 transition"
               >
-                <option value="pending">Pending Pickup</option>
-                <option value="in_transit">In Transit</option>
-                <option value="customs_hold">Customs Hold</option>
-                <option value="delayed">Delayed</option>
-                <option value="delivered">Delivered</option>
+                <option value="pending">{t('status.pending')}</option>
+                <option value="in_transit">{t('status.in_transit')}</option>
+                <option value="customs_hold">{t('status.customs_hold')}</option>
+                <option value="delayed">{t('status.delayed')}</option>
+                <option value="delivered">{t('status.delivered')}</option>
               </select>
-              <span className="text-xs text-slate-500">Live operational sync enabled</span>
+              <span className="text-xs text-slate-500">{t('shipments.syncNote')}</span>
             </div>
           </div>
 
@@ -100,7 +101,7 @@ export function ShipmentDetailModal() {
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex-1">
-                <span className="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase">Origin</span>
+                <span className="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase">{t('modals.origin')}</span>
                 <h4 className="text-base font-semibold text-slate-900 dark:text-white mt-1">{shipment.sender.city}, {shipment.sender.country}</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400">{shipment.sender.name}</p>
                 <p className="text-[11px] text-slate-500 mt-0.5">{shipment.sender.address}</p>
@@ -109,7 +110,7 @@ export function ShipmentDetailModal() {
               <div className="flex flex-col items-center px-4 w-full sm:w-auto">
                 <div className="flex items-center gap-2 text-xs font-medium text-cyan-600 dark:text-cyan-400">
                   <Truck className="w-4 h-4 animate-bounce" />
-                  <span>{shipment.progress}% completed</span>
+                  <span>{shipment.progress}% {t('modals.completed')}</span>
                 </div>
                 <div className="w-full sm:w-48 bg-slate-200 dark:bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
                   <div 
@@ -124,7 +125,7 @@ export function ShipmentDetailModal() {
               </div>
 
               <div className="flex-1 sm:text-right">
-                <span className="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase">Destination</span>
+                <span className="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase">{t('modals.destination')}</span>
                 <h4 className="text-base font-semibold text-slate-900 dark:text-white mt-1">{shipment.receiver.city}, {shipment.receiver.country}</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400">{shipment.receiver.name}</p>
                 <p className="text-[11px] text-slate-500 mt-0.5">{shipment.receiver.address}</p>
@@ -138,31 +139,31 @@ export function ShipmentDetailModal() {
             {/* Cargo Specs */}
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm">
               <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                <Box className="w-4 h-4 text-cyan-600 dark:text-cyan-400" /> Cargo Specifications
+                <Box className="w-4 h-4 text-cyan-600 dark:text-cyan-400" /> {t('modals.cargoSpecs')}
               </h4>
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Cargo Description:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.cargoDesc')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.cargo}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Handling Type:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.handlingType')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.type}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Gross Weight:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.grossWeight')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.weight}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Total Volume:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.totalVolume')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.volume}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Declared Value:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.declaredVal')}</span>
                   <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">{shipment.value}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Freight Rate:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.freightRate')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">${shipment.price?.toLocaleString()} USD</p>
                 </div>
               </div>
@@ -171,26 +172,26 @@ export function ShipmentDetailModal() {
             {/* Carrier & Driver Info */}
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm">
               <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Assigned Vehicle & Driver
+                <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> {t('modals.assignedVehicle')}
               </h4>
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Vehicle Unit:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.vehicleUnit')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.carrier}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Assigned Driver:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.driver')}</span>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{shipment.driver}</p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Driver Contact:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.driverPhone')}</span>
                   <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 mt-0.5 flex items-center gap-1">
                     <Phone className="w-3 h-3" />
                     {shipment.driverPhone}
                   </p>
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500">Estimated Arrival:</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('modals.eta')}</span>
                   <p className="text-xs font-semibold text-amber-600 dark:text-amber-300 mt-0.5">{shipment.eta}</p>
                 </div>
               </div>
@@ -201,7 +202,7 @@ export function ShipmentDetailModal() {
           {/* Timeline Checkpoints */}
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80">
             <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-cyan-600 dark:text-cyan-400" /> Transit Checkpoint Timeline
+              <Clock className="w-4 h-4 text-cyan-600 dark:text-cyan-400" /> {t('modals.timelineTitle')}
             </h4>
             
             <div className="relative pl-6 space-y-6 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
@@ -245,7 +246,7 @@ export function ShipmentDetailModal() {
             onClick={() => setActiveShipmentModal(null)}
             className="px-4 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition"
           >
-            Close
+            {t('modals.btnClose')}
           </button>
         </div>
 

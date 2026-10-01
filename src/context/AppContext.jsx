@@ -8,6 +8,7 @@ import {
   MONTHLY_METRICS,
   CARGO_CATEGORY_DATA
 } from '../data/mockData';
+import { TRANSLATIONS } from '../i18n/translations';
 
 const AppContext = createContext();
 
@@ -17,6 +18,40 @@ export function AppProvider({ children }) {
     const saved = localStorage.getItem('fleetflow_theme');
     return saved ? saved : 'dark';
   });
+
+  // Language state ('uz' | 'en') - default to 'uz'
+  const [language, setLanguageState] = useState(() => {
+    const saved = localStorage.getItem('fleetflow_lang');
+    return saved ? saved : 'uz';
+  });
+
+  const setLanguage = (lang) => {
+    setLanguageState(lang);
+    localStorage.setItem('fleetflow_lang', lang);
+  };
+
+  // Translation helper function
+  const t = (path) => {
+    const keys = path.split('.');
+    let current = TRANSLATIONS[language];
+    for (const key of keys) {
+      if (current && current[key] !== undefined) {
+        current = current[key];
+      } else {
+        // fallback to English
+        let fallback = TRANSLATIONS.en;
+        for (const fbKey of keys) {
+          if (fallback && fallback[fbKey] !== undefined) {
+            fallback = fallback[fbKey];
+          } else {
+            return path;
+          }
+        }
+        return fallback;
+      }
+    }
+    return current;
+  };
 
   // Apply theme class to <html>
   useEffect(() => {
@@ -202,6 +237,9 @@ export function AppProvider({ children }) {
         theme,
         setTheme,
         toggleTheme,
+        language,
+        setLanguage,
+        t,
         shipments,
         fleet,
         drivers,

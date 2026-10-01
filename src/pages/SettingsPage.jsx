@@ -6,7 +6,7 @@ import {
 import { useApp } from '../context/AppContext';
 
 export function SettingsPage() {
-  const { currentUser, switchRole, auditLogs } = useApp();
+  const { currentUser, switchRole, auditLogs, t, language, setLanguage } = useApp();
   const [apiKey, setApiKey] = useState('ff_live_9a8b27fc810ce42019482');
   const [copied, setCopied] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
@@ -33,9 +33,9 @@ export function SettingsPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Organization Profile & Security Settings</h1>
+        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('settings.title')}</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Configure API credentials, inspect immutable audit logs, and toggle notification alerts.
+          {t('settings.subtitle')}
         </p>
       </div>
 
@@ -47,8 +47,8 @@ export function SettingsPage() {
               <User className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Active Profile & Organization</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Current authenticated session details</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('settings.activeProfile')}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('settings.profileSub')}</p>
             </div>
           </div>
           <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 uppercase font-mono">
@@ -58,7 +58,7 @@ export function SettingsPage() {
 
         <form onSubmit={handleSaveProfile} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">Full Name</label>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('settings.fullName')}</label>
             <input
               type="text"
               defaultValue={currentUser.name}
@@ -67,7 +67,7 @@ export function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">Business Email</label>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('settings.businessEmail')}</label>
             <input
               type="email"
               defaultValue={currentUser.email}
@@ -76,7 +76,7 @@ export function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">Organization / Carrier Name</label>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('settings.orgName')}</label>
             <input
               type="text"
               defaultValue={currentUser.company}
@@ -85,18 +85,31 @@ export function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">Default Base Currency</label>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('settings.currency')}</label>
             <select className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-slate-200 focus:outline-none focus:border-cyan-500">
               <option value="USD">USD ($) - US Dollar</option>
               <option value="EUR">EUR (€) - Euro</option>
-              <option value="UZS">UZS - Uzbek Som</option>
+              <option value="UZS">UZS - O'zbek So'mi</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('nav.language')}</label>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-slate-200 focus:outline-none focus:border-cyan-500 font-medium"
+            >
+              <option value="uz">🇺🇿 O'zbekcha</option>
+              <option value="ru">🇷🇺 Русский</option>
+              <option value="en">🇬🇧 English</option>
             </select>
           </div>
 
           <div className="sm:col-span-2 flex items-center justify-between pt-2">
             {savedSuccess ? (
               <span className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-1.5">
-                <Check className="w-4 h-4" /> Profile settings saved successfully!
+                <Check className="w-4 h-4" /> {t('settings.savedSuccess')}
               </span>
             ) : <div />}
 
@@ -104,7 +117,7 @@ export function SettingsPage() {
               type="submit"
               className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition"
             >
-              Update Profile
+              {t('settings.btnSaveProfile')}
             </button>
           </div>
         </form>
@@ -117,14 +130,14 @@ export function SettingsPage() {
             <Key className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Developer API & Telematics Webhook</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Integrate FleetFlow with SAP, Oracle ERP, or custom mobile drivers app</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('settings.apiTitle')}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('settings.apiSubtitle')}</p>
           </div>
         </div>
 
         <div className="space-y-3 text-xs">
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">Live Secret API Key</label>
+            <label className="block text-slate-600 dark:text-slate-400 font-medium mb-1">{t('settings.apiKeyLabel')}</label>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -138,7 +151,7 @@ export function SettingsPage() {
                 className="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 flex items-center gap-1.5 transition"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-400" />}
-                <span>{copied ? 'Copied' : 'Copy'}</span>
+                <span>{copied ? t('settings.copied') : t('settings.btnCopy')}</span>
               </button>
               <button
                 type="button"
@@ -153,11 +166,11 @@ export function SettingsPage() {
 
           <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
             <div>
-              <span className="text-slate-800 dark:text-slate-300 font-semibold block">Inbound Telematics Webhook Endpoint</span>
+              <span className="text-slate-800 dark:text-slate-300 font-semibold block">{t('settings.webhookLabel')}</span>
               <span className="text-[11px] text-slate-500 font-mono">https://api.fleetflow.io/v2/telematics/stream</span>
             </div>
             <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-              Active (200 OK)
+              {t('settings.webhookActive')}
             </span>
           </div>
         </div>
@@ -171,8 +184,8 @@ export function SettingsPage() {
               <History className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Immutable Operational Audit Trail</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Verifiable chronological log of all changes made across the platform</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('settings.auditTitle')}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('settings.auditSubtitle')}</p>
             </div>
           </div>
           <span className="text-[10px] text-slate-500 font-mono">SOC2 Type II Compliant</span>
@@ -182,10 +195,10 @@ export function SettingsPage() {
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="px-4 py-3">Time</th>
-                <th className="px-4 py-3">Initiated By</th>
-                <th className="px-4 py-3">Event Action</th>
-                <th className="px-4 py-3">Event Details</th>
+                <th className="px-4 py-3">{t('settings.colTime')}</th>
+                <th className="px-4 py-3">{t('settings.colUser')}</th>
+                <th className="px-4 py-3">{t('settings.colAction')}</th>
+                <th className="px-4 py-3">{t('settings.colDetails')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">

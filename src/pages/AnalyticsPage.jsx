@@ -10,7 +10,7 @@ import {
 import { useApp } from '../context/AppContext';
 
 export function AnalyticsPage() {
-  const { MONTHLY_METRICS, theme } = useApp();
+  const { MONTHLY_METRICS, theme, t } = useApp();
   const isDark = theme === 'dark';
 
   const corridorData = [
@@ -33,9 +33,9 @@ export function AnalyticsPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Supply Chain BI & Performance Analytics</h1>
+        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('analytics.title')}</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Deep telemetry metrics, route transit punctuality, and fuel decarbonization reporting.
+          {t('analytics.subtitle')}
         </p>
       </div>
 
@@ -43,27 +43,27 @@ export function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">On-Time SLA Guarantee</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.onTimeSla')}</span>
           <div className="mt-2 text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono">98.4%</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">+1.2% higher than industry benchmark</span>
+          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.benchmarkNote')}</span>
         </div>
 
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Average Transit Turnaround</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.avgTransit')}</span>
           <div className="mt-2 text-3xl font-black text-cyan-600 dark:text-cyan-400 font-mono">5.4 Days</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">Cross-Eurasia multimodal corridors</span>
+          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.corridorsNote')}</span>
         </div>
 
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Electric Fleet Decarbonization</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.decarb')}</span>
           <div className="mt-2 text-3xl font-black text-teal-600 dark:text-teal-400 font-mono">-24.6% CO₂</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">Volvo FH Electric zero emissions</span>
+          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.decarbNote')}</span>
         </div>
 
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Customs Clearance Velocity</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.customsSpeed')}</span>
           <div className="mt-2 text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono">3.8 Hours</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">Fast-track e-declaration pipeline</span>
+          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.customsNote')}</span>
         </div>
 
       </div>
@@ -72,11 +72,11 @@ export function AnalyticsPage() {
       <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Major Freight Corridors Average Transit Duration</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Days to complete origin-to-destination multimodal delivery</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('analytics.corridorsTitle')}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('analytics.corridorsSubtitle')}</p>
           </div>
           <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-            SLA Compliant
+            {t('analytics.slaCompliant')}
           </span>
         </div>
 
@@ -108,8 +108,8 @@ export function AnalyticsPage() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Historical On-Time Punctuality (%)</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">6-Month Trendline across all carriers</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('analytics.punctualityTitle')}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('analytics.punctualitySubtitle')}</p>
             </div>
             <TrendingUp className="w-5 h-5 text-emerald-500" />
           </div>
@@ -139,8 +139,8 @@ export function AnalyticsPage() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Electric Energy Transition (kWh vs Diesel Liters)</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Weekly shift towards electric heavy carriers</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('analytics.fuelTitle')}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('analytics.fuelSubtitle')}</p>
             </div>
             <Leaf className="w-5 h-5 text-teal-500" />
           </div>

@@ -14,18 +14,18 @@ import {
 import { useApp } from '../../context/AppContext';
 
 export function Sidebar() {
-  const { shipments } = useApp();
+  const { shipments, t } = useApp();
 
   const activeCount = shipments.filter(s => s.status === 'in_transit' || s.status === 'pending').length;
 
   const navItems = [
-    { label: 'Dashboard', path: '/app/dashboard', icon: LayoutDashboard },
-    { label: 'Shipments', path: '/app/shipments', icon: Package, badge: activeCount },
-    { label: 'Live GPS Tracking', path: '/app/tracking', icon: Navigation },
-    { label: 'Fleet & Drivers', path: '/app/fleet', icon: Truck },
-    { label: 'Invoices & Billing', path: '/app/invoices', icon: Receipt },
-    { label: 'Analytics & BI', path: '/app/analytics', icon: BarChart3 },
-    { label: 'Settings & Logs', path: '/app/settings', icon: Settings },
+    { label: t('nav.dashboard'), path: '/app/dashboard', icon: LayoutDashboard },
+    { label: t('nav.shipments'), path: '/app/shipments', icon: Package, badge: activeCount },
+    { label: t('nav.liveTracking'), path: '/app/tracking', icon: Navigation },
+    { label: t('nav.fleet'), path: '/app/fleet', icon: Truck },
+    { label: t('nav.invoices'), path: '/app/invoices', icon: Receipt },
+    { label: t('nav.analytics'), path: '/app/analytics', icon: BarChart3 },
+    { label: t('nav.settings'), path: '/app/settings', icon: Settings },
   ];
 
   return (
@@ -50,7 +50,7 @@ export function Sidebar() {
         {/* Navigation Items */}
         <div className="p-4 space-y-1.5">
           <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-2">
-            Main Management
+            {t('nav.mainManagement')}
           </span>
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -95,20 +95,20 @@ export function Sidebar() {
           <div className="flex items-center justify-between text-[11px] font-medium text-slate-700 dark:text-slate-300 mb-1">
             <span className="flex items-center gap-1.5">
               <Radio className="w-3 h-3 text-emerald-500 animate-pulse" />
-              GPS Telemetry
+              {t('nav.gpsTelemetry')}
             </span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">CONNECTED</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">{t('nav.gpsConnected')}</span>
           </div>
           <p className="text-[10px] text-slate-500 leading-tight">
-            6 satellite links active • 24ms cloud latency
+            {t('nav.gpsNote')}
           </p>
         </div>
 
         <div className="flex items-center justify-between px-1 text-slate-400 text-xs">
           <Link to="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1 text-[11px]">
-            <Globe className="w-3.5 h-3.5" /> Landing
+            <Globe className="w-3.5 h-3.5" /> {t('nav.landingLink')}
           </Link>
-          <span className="text-[10px] text-slate-400 dark:text-slate-600">v2.4 Enterprise</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-600">{t('nav.systemVersion')}</span>
         </div>
       </div>
 

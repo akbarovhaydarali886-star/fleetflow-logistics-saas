@@ -8,7 +8,7 @@ import { useApp } from '../context/AppContext';
 import { StatusBadge, PriorityBadge } from '../components/common/Badge';
 
 export function ShipmentsPage() {
-  const { shipments, setActiveShipmentModal, updateShipmentStatus } = useApp();
+  const { shipments, setActiveShipmentModal, updateShipmentStatus, t } = useApp();
   const [searchParams] = useSearchParams();
   const initialSearch = searchParams.get('search') || '';
 
@@ -63,9 +63,9 @@ export function ShipmentsPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Shipment Operations & Manifests</h1>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('shipments.title')}</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Track, filter, and inspect international freight orders in real time.
+            {t('shipments.subtitle')}
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export function ShipmentsPage() {
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
           >
             <Download className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-            <span>Export CSV</span>
+            <span>{t('shipments.exportCsv')}</span>
           </button>
 
           <Link
@@ -83,7 +83,7 @@ export function ShipmentsPage() {
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
-            <span>New Shipment</span>
+            <span>{t('shipments.newOrder')}</span>
           </Link>
         </div>
       </div>
@@ -94,11 +94,11 @@ export function ShipmentsPage() {
         {/* Status Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
           {[
-            { id: 'all', label: 'All Orders' },
-            { id: 'in_transit', label: 'In Transit' },
-            { id: 'pending', label: 'Pending Pickup' },
-            { id: 'customs_hold', label: 'Customs Hold' },
-            { id: 'delivered', label: 'Delivered' }
+            { id: 'all', label: t('shipments.tabAll') },
+            { id: 'in_transit', label: t('shipments.tabInTransit') },
+            { id: 'pending', label: t('shipments.tabPending') },
+            { id: 'customs_hold', label: t('shipments.tabCustoms') },
+            { id: 'delivered', label: t('shipments.tabDelivered') }
           ].map(tab => (
             <button
               key={tab.id}
@@ -122,7 +122,7 @@ export function ShipmentsPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by Tracking ID, origin/dest city, cargo, or driver..."
+              placeholder={t('shipments.searchPlaceholder')}
               className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition"
             />
           </div>
@@ -133,10 +133,10 @@ export function ShipmentsPage() {
               onChange={(e) => setPriorityFilter(e.target.value)}
               className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:border-cyan-500 transition w-full sm:w-auto"
             >
-              <option value="all">All Priorities</option>
-              <option value="Urgent">Urgent</option>
-              <option value="High">High</option>
-              <option value="Normal">Normal</option>
+              <option value="all">{t('shipments.allPriorities')}</option>
+              <option value="Urgent">{t('priority.Urgent')}</option>
+              <option value="High">{t('priority.High')}</option>
+              <option value="Normal">{t('priority.Normal')}</option>
             </select>
           </div>
         </div>
@@ -149,21 +149,21 @@ export function ShipmentsPage() {
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="px-5 py-3.5">Tracking Number</th>
-                <th className="px-5 py-3.5">Route</th>
-                <th className="px-5 py-3.5">Cargo Specs</th>
-                <th className="px-5 py-3.5">Carrier / Driver</th>
-                <th className="px-5 py-3.5">Priority</th>
-                <th className="px-5 py-3.5">Rate ($)</th>
-                <th className="px-5 py-3.5">Status</th>
-                <th className="px-5 py-3.5 text-right">Details</th>
+                <th className="px-5 py-3.5">{t('shipments.colId')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colRoute')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colSpecs')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colCarrier')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colPriority')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colRate')}</th>
+                <th className="px-5 py-3.5">{t('shipments.colStatus')}</th>
+                <th className="px-5 py-3.5 text-right">{t('shipments.colDetails')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {filteredShipments.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-5 py-12 text-center text-slate-500 text-xs">
-                    No shipments match the current search filters.
+                    {t('shipments.noResults')}
                   </td>
                 </tr>
               ) : (
@@ -209,7 +209,7 @@ export function ShipmentsPage() {
                         onClick={() => setActiveShipmentModal(s)}
                         className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-700 dark:text-slate-300 text-xs font-semibold transition"
                       >
-                        Inspect
+                        {t('shipments.btnInspect')}
                       </button>
                     </td>
                   </tr>
@@ -221,8 +221,8 @@ export function ShipmentsPage() {
 
         {/* Table Footer */}
         <div className="px-5 py-3 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span>Showing {filteredShipments.length} of {shipments.length} shipments</span>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500">Real-time sync via WebSockets</span>
+          <span>{t('shipments.showing')} {filteredShipments.length} {t('shipments.of')} {shipments.length} {t('shipments.items')}</span>
+          <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('shipments.syncNote')}</span>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ import {
 import { useApp } from '../context/AppContext';
 
 export function TrackingPage() {
-  const { fleet, shipments, setActiveShipmentModal, theme } = useApp();
+  const { fleet, shipments, setActiveShipmentModal, theme, t } = useApp();
   const [selectedVehicleId, setSelectedVehicleId] = useState(fleet[0]?.id || 'TRK-101');
   const [simulatedSpeed, setSimulatedSpeed] = useState(74);
   const [isSimulating, setIsSimulating] = useState(false);
@@ -40,14 +40,14 @@ export function TrackingPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Live Satellite GPS Telematics</h1>
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('tracking.title')}</h1>
             <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Live Orbit Sync
+              {t('tracking.liveOrbit')}
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Real-time telemetry, IoT cold-chain sensor status, and cross-border corridor telemetry.
+            {t('tracking.subtitle')}
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export function TrackingPage() {
           className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
         >
           <RefreshCw className={`w-4 h-4 text-cyan-600 dark:text-cyan-400 ${isSimulating ? 'animate-spin' : ''}`} />
-          <span>Ping Telematics Sensors</span>
+          <span>{t('tracking.btnPing')}</span>
         </button>
       </div>
 
@@ -71,12 +71,12 @@ export function TrackingPage() {
           <div className="flex items-center justify-between z-10">
             <div className="flex items-center gap-2 bg-slate-100/90 dark:bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
               <Navigation className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-              <span className="text-slate-800 dark:text-slate-300 font-semibold">Central Eurasia & Trans-Caspian Corridor</span>
+              <span className="text-slate-800 dark:text-slate-300 font-semibold">{t('tracking.mapTitle')}</span>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 bg-slate-100/90 dark:bg-slate-950/80 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800">
               <Radio className="w-3.5 h-3.5 text-emerald-500 animate-pulse" />
-              <span>{fleet.length} Tracked Units</span>
+              <span>{fleet.length} {t('tracking.trackedUnits')}</span>
             </div>
           </div>
 
@@ -203,16 +203,16 @@ export function TrackingPage() {
           <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800/80 pt-3 z-10">
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> On Route
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> {t('tracking.legendOnRoute')}
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" /> Selected Unit
+                <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" /> {t('tracking.legendSelected')}
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Maintenance / Hold
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> {t('tracking.legendHold')}
               </span>
             </div>
-            <span className="text-[11px] text-slate-400 dark:text-slate-500">Click any marker or list item to inspect telemetry</span>
+            <span className="text-[11px] text-slate-400 dark:text-slate-500">{t('tracking.clickHint')}</span>
           </div>
 
         </div>
@@ -232,7 +232,7 @@ export function TrackingPage() {
                   ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                   : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30'
               }`}>
-                {selectedVehicle.status.replace('_', ' ')}
+                {t(`status.${selectedVehicle.status}`)}
               </span>
             </div>
 
@@ -242,36 +242,36 @@ export function TrackingPage() {
               <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                   <Gauge className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                  <span>Ground Speed</span>
+                  <span>{t('tracking.groundSpeed')}</span>
                 </div>
                 <div className="text-lg font-black text-slate-900 dark:text-white font-mono">
                   {selectedVehicle.status === 'on_route' ? `${simulatedSpeed} km/h` : '0 km/h'}
                 </div>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400">Within speed limit</span>
+                <span className="text-[10px] text-emerald-600 dark:text-emerald-400">{t('tracking.speedNormal')}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                   <Fuel className="w-4 h-4 text-amber-500 dark:text-amber-400" />
-                  <span>Fuel / Battery</span>
+                  <span>{t('tracking.fuelBattery')}</span>
                 </div>
                 <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.fuelLevel}%</div>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400">Range: ~640 km</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400">{t('tracking.fuelRange')}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                   <Thermometer className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>Cargo Temp</span>
+                  <span>{t('tracking.cargoTemp')}</span>
                 </div>
                 <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.temp}</div>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400">Sensor verified</span>
+                <span className="text-[10px] text-emerald-600 dark:text-emerald-400">{t('tracking.sensorVerified')}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
                   <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>Engine Health</span>
+                  <span>{t('tracking.engineHealth')}</span>
                 </div>
                 <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.engineHealth}%</div>
                 <span className="text-[10px] text-slate-500 dark:text-slate-400">{selectedVehicle.tirePressure}</span>
@@ -281,7 +281,7 @@ export function TrackingPage() {
 
             {/* Current Geo Location */}
             <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">Current GPS Fix:</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-1">{t('tracking.currentGpsFix')}</span>
               <p className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 {selectedVehicle.city}
@@ -300,25 +300,25 @@ export function TrackingPage() {
                   </div>
                   <div>
                     <span className="text-slate-900 dark:text-white font-semibold block">{selectedVehicle.driver}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400">Certified Long-Haul Driver</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">{t('tracking.certifiedDriver')}</span>
                   </div>
                 </div>
                 <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">
-                  Active
+                  {t('tracking.activeBadge')}
                 </span>
               </div>
 
               {linkedShipment && (
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                   <div className="text-xs">
-                    <span className="text-[10px] text-slate-400 dark:text-slate-500 block">Assigned Freight Order</span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 block">{t('tracking.assignedOrder')}</span>
                     <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">{linkedShipment.id}</span>
                   </div>
                   <button
                     onClick={() => setActiveShipmentModal(linkedShipment)}
                     className="px-3 py-1 rounded-lg bg-cyan-500 text-slate-950 text-xs font-bold hover:bg-cyan-400 transition"
                   >
-                    View Manifest
+                    {t('tracking.btnManifest')}
                   </button>
                 </div>
               )}
@@ -329,7 +329,7 @@ export function TrackingPage() {
           {/* Quick Vehicle Switcher List */}
           <div className="p-4 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2 max-h-56 overflow-y-auto">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block px-1 mb-2">
-              Fleet Carrier Switcher
+              {t('tracking.switcherTitle')}
             </span>
             {fleet.map(v => (
               <button

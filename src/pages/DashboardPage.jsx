@@ -21,7 +21,8 @@ export function DashboardPage() {
     setActiveShipmentModal,
     MONTHLY_METRICS,
     CARGO_CATEGORY_DATA,
-    theme 
+    theme,
+    t
   } = useApp();
 
   const isDark = theme === 'dark';
@@ -36,13 +37,13 @@ export function DashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Logistics Control Tower</h1>
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('dashboard.title')}</h1>
             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 uppercase">
-              {currentUser.role} Mode
+              {currentUser.role} {t('nav.role')}
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Real-time multi-modal freight monitoring, automated billing, and telematics telemetry.
+            {t('dashboard.subtitle')}
           </p>
         </div>
 
@@ -52,7 +53,7 @@ export function DashboardPage() {
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
           >
             <Navigation className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-            <span>Open GPS Map</span>
+            <span>{t('dashboard.openMap')}</span>
           </Link>
 
           <Link
@@ -60,7 +61,7 @@ export function DashboardPage() {
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
-            <span>Create Shipment</span>
+            <span>{t('dashboard.createShipment')}</span>
           </Link>
         </div>
       </div>
@@ -71,7 +72,7 @@ export function DashboardPage() {
         {/* Card 1 */}
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Active Shipments</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.activeShipments')}</span>
             <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
               <Truck className="w-4 h-4" />
             </div>
@@ -82,13 +83,13 @@ export function DashboardPage() {
               <ArrowUpRight className="w-3.5 h-3.5" /> +14.2%
             </span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">3 approaching destination today</span>
+          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.approachingToday')}</span>
         </div>
 
         {/* Card 2 */}
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Fleet Active Duty</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.fleetActive')}</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <Activity className="w-4 h-4" />
             </div>
@@ -97,15 +98,15 @@ export function DashboardPage() {
             <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">
               {fleet.filter(f => f.status === 'on_route').length} / {fleet.length}
             </span>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">85% Utilized</span>
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t('dashboard.fleetUtilized')}</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">1 vehicle undergoing scheduled service</span>
+          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.fleetServiceNote')}</span>
         </div>
 
         {/* Card 3 */}
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Freight Pipeline Value</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.freightValue')}</span>
             <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
               <DollarSign className="w-4 h-4" />
             </div>
@@ -116,22 +117,22 @@ export function DashboardPage() {
             </span>
             <span className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">USD</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">Across {invoices.length} active invoices</span>
+          <span className="text-[11px] text-slate-500 mt-1 block">{invoices.length} {t('dashboard.invoicesAcross')}</span>
         </div>
 
         {/* Card 4 */}
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Customs & Inspection</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.customsHold')}</span>
             <div className="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-3xl font-black text-rose-600 dark:text-rose-400 font-mono">{delayedShipments.length}</span>
-            <span className="text-xs text-rose-600 dark:text-rose-400 font-medium">Action Req</span>
+            <span className="text-xs text-rose-600 dark:text-rose-400 font-medium">{t('dashboard.actionRequired')}</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">Sarakhs border customs check</span>
+          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.customsNote')}</span>
         </div>
 
       </div>
@@ -143,11 +144,11 @@ export function DashboardPage() {
         <div className="lg:col-span-2 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Monthly Freight Revenue & Delivery SLA</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Historical revenue volume ($USD) over past 6 months</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('dashboard.revenueTitle')}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t('dashboard.revenueSubtitle')}</p>
             </div>
             <span className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-lg border border-cyan-500/20">
-              Avg. 98.4% On-Time
+              {t('dashboard.avgOnTime')}
             </span>
           </div>
 
@@ -182,8 +183,8 @@ export function DashboardPage() {
         {/* Cargo Category Distribution Donut */}
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Cargo Type Breakdown</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Percentage volume by freight class</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('dashboard.cargoTitle')}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t('dashboard.cargoSubtitle')}</p>
           </div>
 
           <div className="h-44 w-full relative flex items-center justify-center my-2">
@@ -214,7 +215,7 @@ export function DashboardPage() {
             </ResponsiveContainer>
             <div className="absolute text-center pointer-events-none">
               <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">100%</span>
-              <span className="text-[10px] block text-slate-500 uppercase">Inspected</span>
+              <span className="text-[10px] block text-slate-500 uppercase">{t('dashboard.inspected')}</span>
             </div>
           </div>
 
@@ -237,14 +238,14 @@ export function DashboardPage() {
       <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Active Cargo In-Transit</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Live operational shipments with checkpoint updates</p>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t('dashboard.activeCargoTable')}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t('dashboard.activeCargoSubtitle')}</p>
           </div>
           <Link
             to="/app/shipments"
             className="text-xs text-cyan-600 dark:text-cyan-400 hover:underline font-semibold flex items-center gap-1 transition"
           >
-            <span>View All Shipments</span>
+            <span>{t('dashboard.viewAll')}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -253,13 +254,13 @@ export function DashboardPage() {
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="px-4 py-3 rounded-l-xl">Tracking ID</th>
-                <th className="px-4 py-3">Route (Origin &rarr; Dest)</th>
-                <th className="px-4 py-3">Cargo Spec</th>
-                <th className="px-4 py-3">Carrier / Driver</th>
-                <th className="px-4 py-3">Progress</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3 text-right rounded-r-xl">Action</th>
+                <th className="px-4 py-3 rounded-l-xl">{t('dashboard.colTrackingId')}</th>
+                <th className="px-4 py-3">{t('dashboard.colRoute')}</th>
+                <th className="px-4 py-3">{t('dashboard.colCargo')}</th>
+                <th className="px-4 py-3">{t('dashboard.colCarrier')}</th>
+                <th className="px-4 py-3">{t('dashboard.colProgress')}</th>
+                <th className="px-4 py-3">{t('dashboard.colStatus')}</th>
+                <th className="px-4 py-3 text-right rounded-r-xl">{t('dashboard.colAction')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
@@ -307,7 +308,7 @@ export function DashboardPage() {
                       onClick={() => setActiveShipmentModal(s)}
                       className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium transition"
                     >
-                      Inspect
+                      {t('dashboard.btnInspect')}
                     </button>
                   </td>
                 </tr>
