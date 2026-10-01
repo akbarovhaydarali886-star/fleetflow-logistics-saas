@@ -6,6 +6,7 @@ import { AppLayout } from './components/layout/AppLayout';
 // Pages
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ShipmentsPage } from './pages/ShipmentsPage';
 import { NewShipmentPage } from './pages/NewShipmentPage';
@@ -25,6 +26,7 @@ export default function App() {
           
           {/* Authentication */}
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           {/* Core Authenticated App (Multi-page Control Tower) */}
           <Route path="/app" element={<AppLayout />}>

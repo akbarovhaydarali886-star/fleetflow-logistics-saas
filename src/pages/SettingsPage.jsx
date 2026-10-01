@@ -100,9 +100,9 @@ export function SettingsPage() {
               onChange={(e) => setLanguage(e.target.value)}
               className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-slate-200 focus:outline-none focus:border-cyan-500 font-medium"
             >
-              <option value="uz">🇺🇿 O'zbekcha</option>
-              <option value="ru">🇷🇺 Русский</option>
-              <option value="en">🇬🇧 English</option>
+              <option value="uz">O'zbekcha (UZ)</option>
+              <option value="ru">Русский (RU)</option>
+              <option value="en">English (ENG)</option>
             </select>
           </div>
 
