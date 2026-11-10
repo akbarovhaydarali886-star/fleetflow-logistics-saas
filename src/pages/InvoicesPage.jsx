@@ -29,9 +29,9 @@ export function InvoicesPage() {
     <div className="space-y-6 animate-fade-in">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('invoices.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('invoices.title')}</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {t('invoices.subtitle')}
           </p>
@@ -49,30 +49,30 @@ export function InvoicesPage() {
       </div>
 
       {/* Financial KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('invoices.totalBilled')}</span>
-          <div className="mt-2 text-2xl font-black text-slate-900 dark:text-white font-mono">${totalInvoiced.toLocaleString()}</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{invoices.length} {t('invoices.acrossOrders')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate block">{t('invoices.totalBilled')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">${totalInvoiced.toLocaleString()}</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{invoices.length} {t('invoices.acrossOrders')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">{t('invoices.collectedRevenue')}</span>
-          <div className="mt-2 text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">${paidInvoiced.toLocaleString()}</div>
-          <span className="text-[11px] text-emerald-600/80 dark:text-emerald-500/80 mt-1 block">{t('invoices.reconciled')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-emerald-600 dark:text-emerald-400 truncate block">{t('invoices.collectedRevenue')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">${paidInvoiced.toLocaleString()}</div>
+          <span className="text-[10px] sm:text-[11px] text-emerald-600/80 dark:text-emerald-500/80 mt-1 block truncate">{t('invoices.reconciled')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">{t('invoices.pendingReceivables')}</span>
-          <div className="mt-2 text-2xl font-black text-amber-600 dark:text-amber-400 font-mono">${pendingInvoiced.toLocaleString()}</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('invoices.standardNet')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-amber-600 dark:text-amber-400 truncate block">{t('invoices.pendingReceivables')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-amber-600 dark:text-amber-400 font-mono">${pendingInvoiced.toLocaleString()}</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{t('invoices.standardNet')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">{t('invoices.overduePayments')}</span>
-          <div className="mt-2 text-2xl font-black text-rose-600 dark:text-rose-400 font-mono">${overdueInvoiced.toLocaleString()}</div>
-          <span className="text-[11px] text-rose-600/80 dark:text-rose-500/80 mt-1 block">{t('invoices.dunningSent')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-rose-600 dark:text-rose-400 truncate block">{t('invoices.overduePayments')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-rose-600 dark:text-rose-400 font-mono">${overdueInvoiced.toLocaleString()}</div>
+          <span className="text-[10px] sm:text-[11px] text-rose-600/80 dark:text-rose-500/80 mt-1 block truncate">{t('invoices.dunningSent')}</span>
         </div>
 
       </div>
@@ -118,8 +118,8 @@ export function InvoicesPage() {
 
       {/* Invoices Table */}
       <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          <table className="w-full text-left text-xs min-w-[720px]">
             <thead className="bg-slate-50 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-5 py-3.5">{t('invoices.colId')}</th>

@@ -16,36 +16,36 @@ export function InvoiceModal() {
   const totalAmount = invoice.amount + taxAmount;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-3xl flex flex-col shadow-2xl overflow-hidden my-8 print:border-none print:shadow-none print:bg-white print:text-black">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/75 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl w-full max-w-3xl flex flex-col shadow-2xl overflow-hidden my-2 sm:my-8 print:border-none print:shadow-none print:bg-white print:text-black">
         
         {/* Actions bar (hidden during print) */}
-        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur print:hidden">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur print:hidden">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('modals.invoiceTitle')}</span>
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('modals.invoiceTitle')}</span>
             <StatusBadge status={invoice.status} />
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {invoice.status !== 'paid' && (
               <button
                 onClick={() => {
                   markInvoicePaid(invoice.id);
                   setActiveInvoiceModal({ ...invoice, status: 'paid' });
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition"
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition"
               >
                 <CheckCircle className="w-3.5 h-3.5" />
-                {t('modals.btnMarkPaid')}
+                <span className="hidden sm:inline">{t('modals.btnMarkPaid')}</span>
               </button>
             )}
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition"
             >
               <Printer className="w-3.5 h-3.5" />
-              {t('modals.btnPrintPdf')}
+              <span className="hidden sm:inline">{t('modals.btnPrintPdf')}</span>
             </button>
 
             <button
@@ -58,7 +58,7 @@ export function InvoiceModal() {
         </div>
 
         {/* Printable Invoice Paper Area */}
-        <div className="p-8 space-y-8 bg-slate-50/50 dark:bg-slate-950/40 print:bg-white print:p-0">
+        <div className="p-4 sm:p-8 space-y-6 sm:space-y-8 bg-slate-50/50 dark:bg-slate-950/40 print:bg-white print:p-0">
           
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-slate-200 dark:border-slate-800 pb-6 print:border-neutral-200">

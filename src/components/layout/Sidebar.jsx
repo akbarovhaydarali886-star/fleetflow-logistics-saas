@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -9,12 +9,32 @@ import {
   BarChart3, 
   Settings, 
   Radio, 
-  Globe 
+  Globe,
+  X,
+  ShieldCheck,
+  User
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export function Sidebar() {
-  const { shipments, t } = useApp();
+  const { shipments, t, mobileMenuOpen, setMobileMenuOpen, currentUser } = useApp();
+  const location = useLocation();
+
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname, setMobileMenuOpen]);
+
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen, setMobileMenuOpen]);
 
   const activeCount = shipments.filter(s => s.status === 'in_transit' || s.status === 'pending').length;
 
@@ -28,13 +48,16 @@ export function Sidebar() {
     { label: t('nav.settings'), path: '/app/settings', icon: Settings },
   ];
 
-  return (
-    <aside className="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col justify-between shrink-0 h-screen sticky top-0 z-40 select-none transition-colors">
-      
+  const renderContent = (isMobile = false) => (
+    <div className="flex flex-col justify-between h-full">
       {/* Brand Header */}
       <div>
-        <div className="h-16 px-6 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 group">
+        <div className="h-16 px-5 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
+          <Link 
+            to="/" 
+            onClick={() => isMobile && setMobileMenuOpen(false)}
+            className="flex items-center gap-2.5 group"
+          >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
               FF
             </div>
@@ -45,7 +68,31 @@ export function Sidebar() {
               <span className="text-[10px] block font-mono text-cyan-600 dark:text-cyan-400 tracking-wider">LOGISTICS OS</span>
             </div>
           </Link>
+
+          {isMobile && (
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              aria-label="Close Sidebar"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
         </div>
+
+        {/* User Badge on mobile */}
+        {isMobile && (
+          <div className="mx-4 mt-3 p-3 rounded-2xl bg-cyan-50/70 dark:bg-slate-900 border border-cyan-200/60 dark:border-slate-800 flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-inner shrink-0">
+              {currentUser.name.charAt(0)}
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="text-xs font-bold text-slate-900 dark:text-white block truncate">{currentUser.name}</span>
+              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 capitalize font-medium">{currentUser.role} • {currentUser.company}</span>
+            </div>
+          </div>
+        )}
 
         {/* Navigation Items */}
         <div className="p-4 space-y-1.5">
@@ -58,6 +105,7 @@ export function Sidebar() {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={() => isMobile && setMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all group ${
                     isActive
@@ -105,13 +153,43 @@ export function Sidebar() {
         </div>
 
         <div className="flex items-center justify-between px-1 text-slate-400 text-xs">
-          <Link to="/" className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1 text-[11px]">
+          <Link 
+            to="/" 
+            onClick={() => isMobile && setMobileMenuOpen(false)}
+            className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1 text-[11px]"
+          >
             <Globe className="w-3.5 h-3.5" /> {t('nav.landingLink')}
           </Link>
           <span className="text-[10px] text-slate-400 dark:text-slate-600">{t('nav.systemVersion')}</span>
         </div>
       </div>
+    </div>
+  );
 
-    </aside>
+  return (
+    <>
+      {/* Desktop Sticky Sidebar (>= 1024px lg) */}
+      <aside className="hidden lg:flex w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex-col justify-between shrink-0 h-screen sticky top-0 z-30 select-none transition-colors">
+        {renderContent(false)}
+      </aside>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 lg:hidden transition-opacity animate-fade-in"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Slide-in Drawer (< 1024px lg) */}
+      <aside 
+        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col justify-between h-full select-none shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {renderContent(true)}
+      </aside>
+    </>
   );
 }

@@ -34,10 +34,10 @@ export function DashboardPage() {
     <div className="space-y-8 animate-fade-in">
       
       {/* Top Welcome & Actions Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('dashboard.title')}</h1>
+            <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('dashboard.title')}</h1>
             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 uppercase">
               {currentUser.role} {t('nav.role')}
             </span>
@@ -47,92 +47,92 @@ export function DashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link
             to="/app/tracking"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
           >
-            <Navigation className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+            <Navigation className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-600 dark:text-cyan-400" />
             <span>{t('dashboard.openMap')}</span>
           </Link>
 
           <Link
             to="/app/shipments/new"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
           >
-            <Plus className="w-4 h-4 stroke-[2.5]" />
+            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
             <span>{t('dashboard.createShipment')}</span>
           </Link>
         </div>
       </div>
 
       {/* KPI Cards Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
         {/* Card 1 */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.activeShipments')}</span>
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
-              <Truck className="w-4 h-4" />
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">{t('dashboard.activeShipments')}</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+              <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">{activeShipments.length}</span>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center font-medium">
-              <ArrowUpRight className="w-3.5 h-3.5" /> +14.2%
+          <div className="mt-2 sm:mt-3 flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono">{activeShipments.length}</span>
+            <span className="text-[11px] sm:text-xs text-emerald-600 dark:text-emerald-400 flex items-center font-medium">
+              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> +14.2%
             </span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.approachingToday')}</span>
+          <span className="text-[10px] sm:text-[11px] text-slate-500 mt-1 block truncate">{t('dashboard.approachingToday')}</span>
         </div>
 
         {/* Card 2 */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.fleetActive')}</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-              <Activity className="w-4 h-4" />
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">{t('dashboard.fleetActive')}</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+              <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">
+          <div className="mt-2 sm:mt-3 flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono">
               {fleet.filter(f => f.status === 'on_route').length} / {fleet.length}
             </span>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t('dashboard.fleetUtilized')}</span>
+            <span className="text-[10px] sm:text-xs text-emerald-600 dark:text-emerald-400 font-medium truncate">{t('dashboard.fleetUtilized')}</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.fleetServiceNote')}</span>
+          <span className="text-[10px] sm:text-[11px] text-slate-500 mt-1 block truncate">{t('dashboard.fleetServiceNote')}</span>
         </div>
 
         {/* Card 3 */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.freightValue')}</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-              <DollarSign className="w-4 h-4" />
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">{t('dashboard.freightValue')}</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+              <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white font-mono">
+          <div className="mt-2 sm:mt-3 flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono truncate">
               ${(totalRevenue).toLocaleString()}
             </span>
-            <span className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">USD</span>
+            <span className="text-[10px] sm:text-xs text-cyan-600 dark:text-cyan-400 font-medium">USD</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">{invoices.length} {t('dashboard.invoicesAcross')}</span>
+          <span className="text-[10px] sm:text-[11px] text-slate-500 mt-1 block truncate">{invoices.length} {t('dashboard.invoicesAcross')}</span>
         </div>
 
         {/* Card 4 */}
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('dashboard.customsHold')}</span>
-            <div className="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-              <AlertTriangle className="w-4 h-4" />
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">{t('dashboard.customsHold')}</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-rose-600 dark:text-rose-400 font-mono">{delayedShipments.length}</span>
-            <span className="text-xs text-rose-600 dark:text-rose-400 font-medium">{t('dashboard.actionRequired')}</span>
+          <div className="mt-2 sm:mt-3 flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-2xl sm:text-3xl font-black text-rose-600 dark:text-rose-400 font-mono">{delayedShipments.length}</span>
+            <span className="text-[10px] sm:text-xs text-rose-600 dark:text-rose-400 font-medium truncate">{t('dashboard.actionRequired')}</span>
           </div>
-          <span className="text-[11px] text-slate-500 mt-1 block">{t('dashboard.customsNote')}</span>
+          <span className="text-[10px] sm:text-[11px] text-slate-500 mt-1 block truncate">{t('dashboard.customsNote')}</span>
         </div>
 
       </div>
@@ -250,8 +250,8 @@ export function DashboardPage() {
           </Link>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          <table className="w-full text-left text-xs min-w-[680px]">
             <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-4 py-3 rounded-l-xl">{t('dashboard.colTrackingId')}</th>

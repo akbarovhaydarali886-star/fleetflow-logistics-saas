@@ -14,19 +14,19 @@ export function FleetPage() {
     <div className="space-y-6 animate-fade-in">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('fleet.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('fleet.title')}</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {t('fleet.subtitle')}
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-xl text-xs">
             <button
               onClick={() => setActiveTab('vehicles')}
-              className={`px-3 py-1.5 rounded-lg font-medium transition ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-medium transition ${
                 activeTab === 'vehicles' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -34,7 +34,7 @@ export function FleetPage() {
             </button>
             <button
               onClick={() => setActiveTab('drivers')}
-              className={`px-3 py-1.5 rounded-lg font-medium transition ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-medium transition ${
                 activeTab === 'drivers' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -44,9 +44,9 @@ export function FleetPage() {
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition"
           >
-            <Plus className="w-4 h-4 stroke-[2.5]" />
+            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
             <span>{t('fleet.btnAdd')}</span>
           </button>
         </div>

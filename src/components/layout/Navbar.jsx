@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Search, Bell, Plus, User, ShieldCheck, ChevronDown, 
-  ExternalLink, Sun, Moon, CheckCheck, Truck, Globe
+  ExternalLink, Sun, Moon, CheckCheck, Truck, Globe, Menu, X
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
@@ -19,12 +19,14 @@ export function Navbar() {
     toggleTheme,
     language,
     setLanguage,
+    setMobileMenuOpen,
     t
   } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -42,38 +44,74 @@ export function Navbar() {
     } else {
       navigate(`/app/shipments?search=${encodeURIComponent(searchQuery)}`);
     }
+    setShowMobileSearch(false);
   };
 
   return (
-    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-30 transition-colors">
+    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between sticky top-0 z-30 transition-colors">
       
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="relative w-full max-w-md hidden sm:block">
-        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder={t('nav.searchPlaceholder')}
-          className="w-full bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
-        />
-        {searchQuery && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-            Enter ↵
-          </span>
-        )}
-      </form>
+      {/* Left side: Hamburger button (mobile) + Desktop Search Form */}
+      <div className="flex items-center gap-2 flex-1 max-w-md">
+        
+        {/* Mobile Hamburger Menu Button */}
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(prev => !prev)}
+          className="p-2 -ml-1 rounded-xl text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition lg:hidden"
+          title="Menyu / Navigation"
+          aria-label="Toggle navigation drawer"
+        >
+          <Menu className="w-5 h-5 stroke-[2.2]" />
+        </button>
+
+        {/* Mobile Brand Name (visible only on small mobile < 640px) */}
+        <div className="flex items-center gap-2 sm:hidden mr-1">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black text-xs shadow-sm">
+            FF
+          </div>
+          <span className="font-bold text-sm tracking-tight text-slate-900 dark:text-white">FleetFlow</span>
+        </div>
+
+        {/* Desktop Search Bar */}
+        <form onSubmit={handleSearch} className="relative w-full hidden sm:block">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t('nav.searchPlaceholder')}
+            className="w-full bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
+          />
+          {searchQuery && (
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+              Enter ↵
+            </span>
+          )}
+        </form>
+      </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-2.5 ml-auto">
+      <div className="flex items-center gap-1.5 sm:gap-2.5 ml-auto">
         
+        {/* Mobile Search Button toggle */}
+        <button
+          type="button"
+          onClick={() => setShowMobileSearch(!showMobileSearch)}
+          className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition sm:hidden"
+          title="Qidiruv / Search"
+          aria-label="Toggle mobile search"
+        >
+          {showMobileSearch ? <X className="w-4 h-4 text-rose-500" /> : <Search className="w-4 h-4" />}
+        </button>
+
         {/* Create Shipment CTA */}
         <Link
           to="/app/shipments/new"
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/10 transition"
+          className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/10 transition shrink-0"
         >
-          <Plus className="w-4 h-4 stroke-[2.5]" />
-          <span>{t('nav.newShipment')}</span>
+          <Plus className="w-4 h-4 stroke-[2.8]" />
+          <span className="hidden md:inline">{t('nav.newShipment')}</span>
+          <span className="md:hidden hidden sm:inline">Yangi</span>
         </Link>
 
         {/* Language Selector Dropdown */}
@@ -97,18 +135,20 @@ export function Navbar() {
         <div className="relative">
           <button
             onClick={() => setShowRoleMenu(!showRoleMenu)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-xs font-medium text-slate-800 dark:text-slate-200 transition"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-xs font-medium text-slate-800 dark:text-slate-200 transition"
+            title={`Rol: ${currentUser.role}`}
           >
-            <ShieldCheck className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
-            <div className="text-left hidden md:block">
+            <ShieldCheck className="w-4 h-4 text-cyan-500 dark:text-cyan-400 shrink-0" />
+            <div className="text-left hidden lg:block">
               <span className="text-[10px] block text-slate-500 dark:text-slate-400 leading-none">{t('nav.role')}:</span>
               <span className="capitalize font-semibold text-slate-900 dark:text-slate-100">{currentUser.role}</span>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400 ml-1" />
+            <span className="lg:hidden text-[11px] font-bold capitalize hidden sm:inline">{currentUser.role}</span>
+            <ChevronDown className="w-3 h-3 text-slate-400" />
           </button>
 
           {showRoleMenu && (
-            <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl py-2 z-50">
+            <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl py-2 z-50 animate-fade-in">
               <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800/80 mb-1">
                 {t('nav.roleSwitcherTitle')}
               </div>
@@ -142,13 +182,14 @@ export function Navbar() {
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition relative"
+            aria-label="Notifications"
           >
             <Bell className="w-4 h-4" />
             <span className="w-2 h-2 rounded-full bg-cyan-500 absolute top-2 right-2 animate-pulse" />
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl overflow-hidden z-50">
+            <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-50 animate-fade-in">
               <div className="px-4 py-3 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-900 dark:text-white">{t('nav.notifications')}</span>
                 <span className="text-[10px] text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full font-medium">{t('nav.realTime')}</span>
@@ -169,11 +210,11 @@ export function Navbar() {
         </div>
 
         {/* User Avatar & Public Website Link */}
-        <div className="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-1.5 sm:gap-2 pl-1 sm:pl-2 border-l border-slate-200 dark:border-slate-800">
           <Link
             to="/"
             title={t('nav.landingLink')}
-            className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition hidden sm:inline-flex"
           >
             <ExternalLink className="w-4 h-4" />
           </Link>
@@ -183,6 +224,32 @@ export function Navbar() {
         </div>
 
       </div>
+
+      {/* Mobile Expandable Search Bar Drawer */}
+      {showMobileSearch && (
+        <div className="absolute top-16 left-0 right-0 p-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sm:hidden z-40 animate-fade-in shadow-xl">
+          <form onSubmit={handleSearch} className="relative w-full">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              autoFocus
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t('nav.searchPlaceholder')}
+              className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl pl-10 pr-10 py-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
+            />
+            {searchQuery && (
+              <button 
+                type="button" 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </form>
+        </div>
+      )}
 
     </header>
   );

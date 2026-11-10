@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   Truck, ShieldCheck, Navigation, ArrowRight, CheckCircle2, 
   Globe2, BarChart3, Clock, DollarSign, Search, Sparkles, 
-  MapPin, Activity, Zap, Sun, Moon, Users, ChevronDown, CheckCheck
+  MapPin, Activity, Zap, Sun, Moon, Users, ChevronDown, CheckCheck, Menu, X
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { LanguageSelector } from '../components/common/LanguageSelector';
@@ -13,6 +13,7 @@ export function LandingPage() {
   const { shipments, setActiveShipmentModal, theme, toggleTheme, t } = useApp();
   const [trackInput, setTrackInput] = useState('');
   const [trackError, setTrackError] = useState('');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const handleTrackSubmit = (e) => {
     e.preventDefault();
@@ -33,27 +34,27 @@ export function LandingPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors">
       
       {/* Header */}
-      <header className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 transition-colors">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <header className="border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md sticky top-0 z-50 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-cyan-500/20">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-cyan-500/20 shrink-0">
               FF
             </div>
             <div>
-              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">FleetFlow</span>
-              <span className="text-[10px] block font-mono text-cyan-600 dark:text-cyan-400 -mt-1 tracking-wider">ENTERPRISE SAAS</span>
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">FleetFlow</span>
+              <span className="text-[9px] sm:text-[10px] block font-mono text-cyan-600 dark:text-cyan-400 -mt-1 tracking-wider">ENTERPRISE SAAS</span>
             </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-600 dark:text-slate-300">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-semibold text-slate-600 dark:text-slate-300">
             <a href="#features" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition">{t('landing.solutions')}</a>
             <a href="#tracking-demo" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition">{t('landing.liveTracking')}</a>
             <a href="#impact" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition">{t('landing.impact')}</a>
             <a href="#pricing" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition">{t('landing.pricing')}</a>
           </nav>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
             {/* Language Selector */}
             <LanguageSelector align="right" />
 
@@ -73,28 +74,91 @@ export function LandingPage() {
 
             <Link
               to="/login"
-              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden sm:inline-block px-2"
+              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden md:inline-block px-2"
             >
               {t('landing.login')}
             </Link>
 
             <Link
               to="/register"
-              className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition hidden sm:inline-block px-2"
+              className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition hidden md:inline-block px-2"
             >
               {t('auth.signUp') || "Ro'yxatdan o'tish"}
             </Link>
             
             <Link
               to="/app/dashboard"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20 transition transform hover:-translate-y-0.5"
             >
               <span>{t('landing.launchApp')}</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
             </Link>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              type="button"
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition md:hidden"
+              aria-label="Toggle Navigation"
+            >
+              {mobileNavOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
           </div>
 
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileNavOpen && (
+          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-4 space-y-3 animate-fade-in shadow-2xl">
+            <div className="flex flex-col space-y-2 text-xs font-semibold">
+              <a 
+                href="#features" 
+                onClick={() => setMobileNavOpen(false)}
+                className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-200"
+              >
+                {t('landing.solutions')}
+              </a>
+              <a 
+                href="#tracking-demo" 
+                onClick={() => setMobileNavOpen(false)}
+                className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-200"
+              >
+                {t('landing.liveTracking')}
+              </a>
+              <a 
+                href="#impact" 
+                onClick={() => setMobileNavOpen(false)}
+                className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-200"
+              >
+                {t('landing.impact')}
+              </a>
+              <a 
+                href="#pricing" 
+                onClick={() => setMobileNavOpen(false)}
+                className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-200"
+              >
+                {t('landing.pricing')}
+              </a>
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2 text-xs">
+              <Link
+                to="/login"
+                onClick={() => setMobileNavOpen(false)}
+                className="py-2.5 text-center font-bold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200"
+              >
+                {t('landing.login')}
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setMobileNavOpen(false)}
+                className="py-2.5 text-center font-bold rounded-xl bg-cyan-500 text-slate-950"
+              >
+                {t('auth.signUp') || "Ro'yxatdan o'tish"}
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Recruiter / Portfolio Demo Alert Banner */}
@@ -118,21 +182,21 @@ export function LandingPage() {
         {/* Glow backdrop */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-xs font-medium mb-6">
             <Zap className="w-3.5 h-3.5" />
             <span>{t('landing.heroBadge')}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] max-w-5xl mx-auto">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] max-w-5xl mx-auto">
             {t('landing.heroTitle1')} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-teal-500 to-emerald-600 dark:from-cyan-400 dark:via-teal-300 dark:to-emerald-400">
               {t('landing.heroTitle2')}
             </span>
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed px-2">
             {t('landing.heroSub')}
           </p>
 

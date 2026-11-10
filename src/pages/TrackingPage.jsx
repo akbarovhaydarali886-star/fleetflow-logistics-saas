@@ -37,10 +37,10 @@ export function TrackingPage() {
     <div className="space-y-6 animate-fade-in">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('tracking.title')}</h1>
+            <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('tracking.title')}</h1>
             <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               {t('tracking.liveOrbit')}
@@ -54,7 +54,7 @@ export function TrackingPage() {
         <button
           onClick={handleSimulatePing}
           disabled={isSimulating}
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition"
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition w-full sm:w-auto"
         >
           <RefreshCw className={`w-4 h-4 text-cyan-600 dark:text-cyan-400 ${isSimulating ? 'animate-spin' : ''}`} />
           <span>{t('tracking.btnPing')}</span>
@@ -65,7 +65,7 @@ export function TrackingPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Interactive Simulated Map (2 Cols) */}
-        <div className="lg:col-span-2 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between relative overflow-hidden min-h-[460px] shadow-sm">
+        <div className="lg:col-span-2 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[360px] sm:min-h-[460px] shadow-sm">
           
           {/* Map Top Bar */}
           <div className="flex items-center justify-between z-10">
@@ -220,11 +220,11 @@ export function TrackingPage() {
         {/* Selected Vehicle Telemetry Dossier */}
         <div className="space-y-4">
           
-          <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 sm:space-y-5">
+            <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200 dark:border-slate-800">
               <div>
                 <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-widest">{selectedVehicle.id}</span>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">{selectedVehicle.model}</h3>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">{selectedVehicle.model}</h3>
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{selectedVehicle.plate}</span>
               </div>
               <span className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize ${
@@ -237,43 +237,43 @@ export function TrackingPage() {
             </div>
 
             {/* Telemetry Gauge Cards */}
-            <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs">
               
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
-                  <Gauge className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                  <span>{t('tracking.groundSpeed')}</span>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 dark:text-slate-400 mb-1">
+                  <Gauge className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-600 dark:text-cyan-400" />
+                  <span className="text-[11px] sm:text-xs truncate">{t('tracking.groundSpeed')}</span>
                 </div>
-                <div className="text-lg font-black text-slate-900 dark:text-white font-mono">
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono">
                   {selectedVehicle.status === 'on_route' ? `${simulatedSpeed} km/h` : '0 km/h'}
                 </div>
                 <span className="text-[10px] text-emerald-600 dark:text-emerald-400">{t('tracking.speedNormal')}</span>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
-                  <Fuel className="w-4 h-4 text-amber-500 dark:text-amber-400" />
-                  <span>{t('tracking.fuelBattery')}</span>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 dark:text-slate-400 mb-1">
+                  <Fuel className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 dark:text-amber-400" />
+                  <span className="text-[11px] sm:text-xs truncate">{t('tracking.fuelBattery')}</span>
                 </div>
-                <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.fuelLevel}%</div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.fuelLevel}%</div>
                 <span className="text-[10px] text-slate-500 dark:text-slate-400">{t('tracking.fuelRange')}</span>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
-                  <Thermometer className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{t('tracking.cargoTemp')}</span>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 dark:text-slate-400 mb-1">
+                  <Thermometer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span className="text-[11px] sm:text-xs truncate">{t('tracking.cargoTemp')}</span>
                 </div>
-                <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.temp}</div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.temp}</div>
                 <span className="text-[10px] text-emerald-600 dark:text-emerald-400">{t('tracking.sensorVerified')}</span>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
-                  <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>{t('tracking.engineHealth')}</span>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 dark:text-slate-400 mb-1">
+                  <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span className="text-[11px] sm:text-xs truncate">{t('tracking.engineHealth')}</span>
                 </div>
-                <div className="text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.engineHealth}%</div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white font-mono">{selectedVehicle.engineHealth}%</div>
                 <span className="text-[10px] text-slate-500 dark:text-slate-400">{selectedVehicle.tirePressure}</span>
               </div>
 

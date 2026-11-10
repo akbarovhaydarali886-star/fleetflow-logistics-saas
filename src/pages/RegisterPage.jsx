@@ -152,13 +152,13 @@ export function RegisterPage() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[500px] bg-cyan-500/10 blur-[150px] rounded-full pointer-events-none" />
 
       {/* Top right language & theme switchers */}
-      <div className="absolute top-6 right-6 flex items-center gap-2.5 z-20">
+      <div className="absolute top-4 sm:top-6 right-4 sm:right-6 flex items-center gap-2 sm:gap-2.5 z-20">
         <LanguageSelector align="right" />
 
         <button
           onClick={toggleTheme}
           title={theme === 'dark' ? t('nav.lightMode') : t('nav.darkMode')}
-          className="p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm"
+          className="p-2 sm:p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-sm"
           aria-label="Toggle Theme"
         >
           {theme === 'dark' ? (
@@ -170,12 +170,12 @@ export function RegisterPage() {
       </div>
 
       {/* Brand Header */}
-      <Link to="/" className="flex items-center gap-3 mb-6 mt-8 sm:mt-0 group z-10">
-        <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-xl shadow-cyan-500/20 group-hover:scale-105 transition">
+      <Link to="/" className="flex items-center gap-2.5 sm:gap-3 mb-6 mt-12 sm:mt-0 group z-10">
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-xl shadow-cyan-500/20 group-hover:scale-105 transition">
           FF
         </div>
         <div>
-          <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition">
+          <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition">
             FleetFlow
           </span>
           <span className="text-[10px] block font-mono text-cyan-600 dark:text-cyan-400 tracking-wider">
@@ -185,7 +185,7 @@ export function RegisterPage() {
       </Link>
 
       {/* Main Registration Card */}
-      <div className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 my-4">
+      <div className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl relative z-10 my-4">
         
         {/* Success Modal / State */}
         {isSuccess ? (

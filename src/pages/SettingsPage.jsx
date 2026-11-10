@@ -40,7 +40,7 @@ export function SettingsPage() {
       </div>
 
       {/* Role & Profile Section */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+      <div className="p-4 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 sm:space-y-6">
         <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400 font-bold">
@@ -177,7 +177,7 @@ export function SettingsPage() {
       </div>
 
       {/* Immutable Enterprise Audit Logs */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+      <div className="p-4 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
@@ -188,11 +188,11 @@ export function SettingsPage() {
               <p className="text-xs text-slate-500 dark:text-slate-400">{t('settings.auditSubtitle')}</p>
             </div>
           </div>
-          <span className="text-[10px] text-slate-500 font-mono">SOC2 Type II Compliant</span>
+          <span className="text-[10px] text-slate-500 font-mono hidden sm:inline">SOC2 Type II Compliant</span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          <table className="w-full text-left text-xs min-w-[550px]">
             <thead className="bg-slate-50 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-4 py-3">{t('settings.colTime')}</th>

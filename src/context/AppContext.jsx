@@ -100,6 +100,9 @@ export function AppProvider({ children }) {
   const [activeInvoiceModal, setActiveInvoiceModal] = useState(null);
   const [quickTrackId, setQuickTrackId] = useState('');
 
+  // Mobile menu / sidebar drawer state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Save to localStorage when updated
   useEffect(() => {
     localStorage.setItem('fleetflow_shipments', JSON.stringify(shipments));
@@ -256,6 +259,8 @@ export function AppProvider({ children }) {
         setActiveInvoiceModal,
         quickTrackId,
         setQuickTrackId,
+        mobileMenuOpen,
+        setMobileMenuOpen,
         MONTHLY_METRICS,
         CARGO_CATEGORY_DATA
       }}

@@ -97,14 +97,14 @@ export function NewShipmentPage() {
       
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('wizard.title')}</h1>
+        <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">{t('wizard.title')}</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           {t('wizard.subtitle')}
         </p>
       </div>
 
       {/* Stepper Progress Bar */}
-      <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between">
           {[
             { num: 1, label: t('wizard.step1') },
@@ -117,24 +117,24 @@ export function NewShipmentPage() {
 
             return (
               <div key={s.num} className="flex-1 flex items-center">
-                <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-xl font-mono text-xs font-bold flex items-center justify-center transition-all ${
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl font-mono text-xs font-bold flex items-center justify-center transition-all ${
                     isCompleted
                       ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                       : isCurrent
                       ? 'bg-cyan-500 text-slate-950 ring-4 ring-cyan-500/20 font-black'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
                   }`}>
-                    {isCompleted ? <Check className="w-4 h-4 stroke-[3]" /> : s.num}
+                    {isCompleted ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" /> : s.num}
                   </div>
-                  <span className={`text-xs font-semibold hidden md:inline ${
+                  <span className={`text-xs font-semibold hidden sm:inline ${
                     isCurrent ? 'text-slate-900 dark:text-white font-bold' : isCompleted ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'
                   }`}>
                     {s.label}
                   </span>
                 </div>
                 {index < 3 && (
-                  <div className={`flex-1 h-0.5 mx-4 hidden sm:block ${
+                  <div className={`flex-1 h-0.5 mx-2 sm:mx-4 hidden sm:block ${
                     step > s.num ? 'bg-emerald-500/60' : 'bg-slate-200 dark:bg-slate-800'
                   }`} />
                 )}
@@ -145,7 +145,7 @@ export function NewShipmentPage() {
       </div>
 
       {/* Form Card */}
-      <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="p-4 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <form onSubmit={step === 4 ? handleSubmit : (e) => { e.preventDefault(); setStep(s => s + 1); }}>
           
           {/* STEP 1: Origin & Destination */}

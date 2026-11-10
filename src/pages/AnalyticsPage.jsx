@@ -40,30 +40,30 @@ export function AnalyticsPage() {
       </div>
 
       {/* Top Impact KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.onTimeSla')}</span>
-          <div className="mt-2 text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono">98.4%</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.benchmarkNote')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate block">{t('analytics.onTimeSla')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono">98.4%</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{t('analytics.benchmarkNote')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.avgTransit')}</span>
-          <div className="mt-2 text-3xl font-black text-cyan-600 dark:text-cyan-400 font-mono">5.4 Days</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.corridorsNote')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate block">{t('analytics.avgTransit')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400 font-mono">5.4 Days</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{t('analytics.corridorsNote')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.decarb')}</span>
-          <div className="mt-2 text-3xl font-black text-teal-600 dark:text-teal-400 font-mono">-24.6% CO₂</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.decarbNote')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate block">{t('analytics.decarb')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-3xl font-black text-teal-600 dark:text-teal-400 font-mono">-24.6% CO₂</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{t('analytics.decarbNote')}</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('analytics.customsSpeed')}</span>
-          <div className="mt-2 text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono">3.8 Hours</div>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 block">{t('analytics.customsNote')}</span>
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate block">{t('analytics.customsSpeed')}</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono">3.8 Hours</div>
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 mt-1 block truncate">{t('analytics.customsNote')}</span>
         </div>
 
       </div>
